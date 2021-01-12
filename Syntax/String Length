@@ -1,0 +1,5 @@
+function printParameter(inputOne, inputTwo, inputThree){
+    console.log(inputOne.length + inputTwo.length + inputThree.length);
+    let sum = inputOne.length + inputTwo.length + inputThree.length;
+    console.log(Math.floor(sum / 3));
+}
