@@ -1,0 +1,15 @@
+function agragateElements(input){
+    console.log(input.reduce((a, b) => a + b, 0))
+    let inverseSum = 0
+    for (const element of input) {
+        num = 1 /element;
+        inverseSum += num
+      }
+    console.log(inverseSum)
+    let str = ''
+    for (const element of input) {
+        num = String(element);
+        str += num
+      }
+    console.log(str)
+}
