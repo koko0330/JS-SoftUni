@@ -1,0 +1,16 @@
+function printParameter(inputOne, inputTwo, inputThree){
+    let biggestNum = ''
+    if (inputThree > inputTwo) {
+        if (inputThree > inputTwo);
+        biggestNum = inputThree;
+    }
+    else if (inputTwo > inputOne) {
+        if (inputTwo > inputThree);
+        biggestNum = inputTwo;
+    }
+    else if (inputOne > inputTwo) {
+        if (inputOne > inputThree);
+        biggestNum = inputOne;
+    }
+    console.log('The largest number is', biggestNum + '.')
+}
