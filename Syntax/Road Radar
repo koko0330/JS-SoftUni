@@ -1,0 +1,66 @@
+function solve(speed, area) {
+    let motorway = 130
+    let interstate = 90
+    let city = 50
+    let residential = 20
+
+    if (area == "motorway" && speed <= motorway) {
+        console.log(`Driving ${speed} km/h in a ${motorway} zone`)
+    } else if (area == "interstate" && speed <= interstate) {
+        console.log(`Driving ${speed} km/h in a ${interstate} zone`)
+    } else if (area == "city" && speed <= city) {
+        console.log(`Driving ${speed} km/h in a ${city} zone`)
+    } else if (area == "residential" && speed <= residential) {
+        console.log(`Driving ${speed} km/h in a ${residential} zone`)
+    }
+    
+    if (speed > motorway && area == "motorway") {
+        difference = speed - motorway
+        if (difference <= 20) {
+            let status = 'speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${motorway} - ${status}`)
+        } else if (difference <= 40) {
+            let status = 'excessive speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${motorway} - ${status}`)
+        } else {
+            let status = 'reckless driving'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${motorway} - ${status}`)
+        }
+    } else if (speed > interstate && area == "interstate") {
+        difference = speed - interstate
+        if (difference <= 20) {
+            let status = 'speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${interstate} - ${status}`)
+        } else if (difference <= 40) {
+            let status = 'excessive speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${interstate} - ${status}`)
+        } else {
+            let status = 'reckless driving'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${interstate} - ${status}`)
+        } 
+    } else if (speed > city && area == "city") {
+        difference = speed - city
+        if (difference <= 20) {
+            let status = 'speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${city} - ${status}`)
+        } else if (difference <= 40) {
+            let status = 'excessive speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${city} - ${status}`)
+        } else {
+            let status = 'reckless driving'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${city} - ${status}`)
+        }
+    } else if (speed > residential && area == "residential") {
+        difference = speed - residential
+        if (difference <= 20) {
+            let status = 'speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${residential} - ${status}`)
+        } else if (difference <= 40) {
+            let status = 'excessive speeding'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${residential} - ${status}`)
+        } else {
+            let status = 'reckless driving'
+            console.log(`The speed is ${difference} km/h faster than the allowed speed of ${residential} - ${status}`)
+        }
+    }
+}
