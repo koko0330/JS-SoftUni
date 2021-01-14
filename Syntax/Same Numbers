@@ -1,0 +1,18 @@
+function solve(num) {
+    let statement = Boolean;
+    numArray = Array.from(String(num), Number);
+    let index = 0;
+    let num_one = numArray[0];
+    while (index < numArray.length) {
+        let next_num = numArray[index];
+        if (num_one == next_num) {
+            statement = true;
+            index += 1;
+        } else {
+            statement = false;
+            break;
+        }
+    }
+    console.log(statement);
+    console.log(numArray.reduce((a, b) => a + b));
+}
