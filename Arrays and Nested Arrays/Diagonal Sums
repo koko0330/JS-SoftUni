@@ -1,0 +1,16 @@
+function solve(input) {
+    let diagonalOne = 0;
+    idx = 0;
+    for (row of input) {
+        diagonalOne += row[idx];
+        idx += 1
+    }
+    let diagonalTwo = 0;
+    idx = input[0].length - 1
+    for (row of input) {
+        diagonalTwo += row[idx];
+        idx -= 1
+    }
+    result = [diagonalOne, diagonalTwo]
+    return result.join(" ") 
+}
