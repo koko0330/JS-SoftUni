@@ -1,0 +1,4 @@
+function solve(input) {
+    let sum = Number(input.shift()) + Number(input.pop());
+    return sum
+}
