@@ -1,0 +1,12 @@
+function solve(input, targetOne, targetTwo) {
+    let startIndex = 0
+    let endIndex = 0
+    for (el of input) {
+        if (el == targetOne) {
+            startIndex = input.indexOf(el)
+        } else if (el == targetTwo) {
+            endIndex = input.indexOf(el)
+        }
+    }
+    return input.slice(startIndex, endIndex + 1)
+}
