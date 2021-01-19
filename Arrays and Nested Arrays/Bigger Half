@@ -1,0 +1,5 @@
+function solve(input) {
+    input.sort((a, b) => a - b);
+    arrayHalf = Math.floor(input.length / 2);
+    return input.slice(arrayHalf);
+}
