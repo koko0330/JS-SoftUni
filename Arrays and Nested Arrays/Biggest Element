@@ -1,0 +1,11 @@
+function solve(input) {
+    let biggest = - Number.MAX_SAFE_INTEGER;
+    for (row of input) {
+        for (el of row) {
+            if (el > biggest) {
+                biggest = el;
+            }
+        }
+    }
+    return biggest;
+}
