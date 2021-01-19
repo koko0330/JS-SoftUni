@@ -1,0 +1,13 @@
+function solve(input) {
+    finalArray = []
+    for (el of input) {
+        if (el < 0) {
+            finalArray.unshift(el)
+        } else {
+            finalArray.push(el)
+        }
+    }
+    for (el of finalArray) {
+        console.log(el)
+    }
+}
