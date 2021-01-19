@@ -1,0 +1,11 @@
+function solve(input) {
+    input.sort(function(a, b) {
+        return a - b;
+      });
+    let result = []
+    let first = input.shift()
+    result.push(first)
+    let second = input.shift()
+    result.push(second)
+    console.log(result.join(" "))
+}
