@@ -1,0 +1,25 @@
+function equalNeig(input) {
+    let result = 0;
+    let nextArr = 1;
+    input.forEach(array => {
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+            if (nextArr != input.length) {
+                let neighb = input[nextArr][index]
+                if (element == neighb) {
+                    result++;
+                }
+                if (element == array[index + 1]) {
+                    result++;
+                }
+            }
+            else {
+                if (element == array[index + 1]) {
+                    result++;
+                }
+            }
+        }
+        nextArr++;
+    });
+    console.log(result);
+}
