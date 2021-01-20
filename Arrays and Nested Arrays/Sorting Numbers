@@ -1,0 +1,10 @@
+function solve(input) {
+    input.sort((a, b) => a - b)
+    let index = 0
+    result = []
+    while (input.length) {
+        result.push(input.shift())
+        result.push(input.pop())
+    }
+    return result
+}
