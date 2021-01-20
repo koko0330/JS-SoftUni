@@ -1,0 +1,9 @@
+function solve(input, delimeter) {
+    let result = [];
+    for (el of input) {
+        result.push(el)
+        result.push(delimeter)
+    }
+    result.pop()
+    return result.join('')
+}
