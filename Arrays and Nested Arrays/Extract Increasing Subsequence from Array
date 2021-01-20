@@ -1,0 +1,11 @@
+function solve(input) {
+    let result = [];
+    let biggest = input[0];
+    result.push(biggest);
+    for (let index = 1; index < input.length; index++) {
+        if (input[index] >= result[result.length - 1]) {
+        result.push(input[index])
+        }      
+    }
+    return result
+}
