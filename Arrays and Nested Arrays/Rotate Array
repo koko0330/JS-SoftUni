@@ -1,0 +1,7 @@
+function solve(input, count) {
+    for (let index = 0; index < count; index++) {
+        let el = input.pop();
+        input.unshift(el)
+    }
+    return input.join(" ")
+}
