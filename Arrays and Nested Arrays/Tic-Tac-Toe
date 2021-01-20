@@ -1,0 +1,71 @@
+function ticTac(input) {
+    let players = ["X", "O"];
+    let toggle = 0;
+    let gamefield = [
+        [false, false, false],
+        [false, false, false],
+        [false, false, false]
+    ]
+    let winner;
+    let fulltable = false;
+
+    while (winner === undefined) {
+        for (let i = 0; i < input.length; i++) {
+            let [x, y] = input[i].split(" ");
+
+            if (gamefield[x][y] !== false) {
+                console.log(`This place is already taken. Please choose another!`);
+            } else {
+
+                gamefield[x][y] = players[toggle % 2];
+                toggle++;
+                winner = checkForWinner(gamefield);
+                fulltable = checkFullTable(gamefield);
+                if (winner !== undefined || fulltable === true) { break; }
+            }
+        }
+        if (winner === undefined) {
+            winner = "Nobody";
+        }
+    }
+
+    if (winner === `Nobody`) {
+        console.log("The game ended! Nobody wins :(");
+    } else {
+        console.log(`Player ${winner} wins!`);
+    }
+    gamefield.forEach(element => {
+        console.log(element.join(`\t`));
+    })
+
+
+    function checkForWinner(gamefield) {
+        for (let index = 0; index < gamefield.length; index++) {
+            if (gamefield[index][0] === gamefield[index][1] && gamefield[index][0] === gamefield[index][2] && gamefield[index][0] !== false)
+                return gamefield[index][0];
+        }
+
+        for (let index = 0; index < gamefield[0].length; index++) {
+            if (gamefield[0][index] === gamefield[1][index] && gamefield[0][index] === gamefield[2][index] && gamefield[0][index] !== false)
+                return gamefield[index][0];
+        }
+
+        if (gamefield[0][0] === gamefield[1][1] && gamefield[0][0] === gamefield[2][2] && gamefield[0][0] !== false)
+            return gamefield[0][0];
+
+        if (gamefield[0][2] === gamefield[1][1] && gamefield[0][2] === gamefield[2][0] && gamefield[0][2] !== false)
+            return gamefield[0][2];
+    }
+
+    function checkFullTable(gamefield) {
+        let full = true;
+        for (let i = 0; i < gamefield.length; i++) {
+            for (let y = 0; y < gamefield[i].length; y++) {
+                if (gamefield[i][y] === false) {
+                    full = false;
+                }
+            }
+        }
+        return full;
+    }
+}
