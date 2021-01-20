@@ -1,0 +1,25 @@
+function solve(input) {
+    result = Boolean
+    let sumRows = 0
+    let sumCollumns = 0
+    for (row of input) {
+        let currentRowSum = 0
+        let currentCollumnSum = 0
+        for (let elIdn = 0; elIdn < input.length; elIdn++) {
+            currentRowSum += row[elIdn]
+            indexRow = input.indexOf(row)
+            currentCollumnSum += input[elIdn][indexRow]
+        }
+        if (input.indexOf(row) == 0) {
+            sumRows = currentRowSum
+            sumCollumns = currentCollumnSum
+        }
+        if (currentRowSum == sumRows && currentCollumnSum == sumCollumns && currentRowSum == currentCollumnSum) {
+            result = true
+        } else {
+            result = false
+            break
+        }
+    }
+    return result
+}
