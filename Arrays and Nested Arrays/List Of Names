@@ -1,0 +1,6 @@
+function solve(input) {
+    input.sort((a, b) => a.localeCompare(b))
+    for (el of input) {
+        console.log(`${input.indexOf(el) + 1}.${el}`)
+    }
+}
