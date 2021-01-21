@@ -1,0 +1,31 @@
+function solve(input) {
+    let register = {}
+    while (input.length) {
+        let product = input.shift()
+        tokens = product.split(" : ")
+        let productName = tokens[0]
+        let productPrice = Number(tokens[1])
+        let productLetter = productName[0]
+
+        if (!register[productLetter]) {
+            register[productLetter] = []
+        }  
+
+        register[productLetter].push({productName, productPrice})
+        register[productLetter].sort((a, b) => a.productName.localeCompare(b.productName))
+    }
+    
+    let result = []
+
+    Object.entries(register).sort((a,b) => a[0].localeCompare(b[0])).forEach(element => {
+        let values = element[1]
+        .sort((a,b) => a.productName.localeCompare(b.productName))
+        .map(product =>`  ${product.productName}: ${product.productPrice}`)
+        .join("\n")
+
+        let string = `${element[0]}\n${values}`
+        result.push(string)
+    });
+
+    return result.join("\n")
+}
