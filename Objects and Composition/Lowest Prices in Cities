@@ -1,0 +1,25 @@
+function solve(input) {
+    let registry = []
+    let names = []
+    for (el of input) {
+        tokens = el.split(" | ")
+        let townName = tokens[0]
+        let productName = tokens[1]
+        let productPrice = Number(tokens[2])
+        let productObj = {product: productName, price: productPrice, name: townName}
+        let index = 0
+        if (names.includes(productName) == false) {
+            registry.push(productObj)
+            names.push(productName)
+        } else {
+            index = names.indexOf(productName)
+            if (registry[index].price > productPrice) {
+                registry[index].price = productPrice
+                registry[index].name = townName
+            }
+        }
+    }
+    for (el of registry) {
+        console.log(`${el.product} -> ${el.price} (${el.name})`)
+    }
+}
