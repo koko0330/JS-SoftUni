@@ -1,0 +1,34 @@
+function solve(car) {
+    let smallEngine = {power: 90, volume: 1800}; 
+    let normalEngine = {power: 120, volume: 2400};
+    let monsterEngine = {power: 200, volume: 3500};
+
+    let chosenEngine = ''
+
+    if (car.power <= 90) {
+        chosenEngine = smallEngine
+    } else if (car.power > 90 && car.power <= 120) {
+        chosenEngine = normalEngine
+    } else {
+        chosenEngine = monsterEngine
+    }
+
+    let chosenCarriage = {type: car.carriage, color: car.color}
+
+    let chosenWeels = ""
+
+    if (car.wheelsize % 2 == 0) {
+        chosenWeels = [car.wheelsize - 1, car.wheelsize - 1, car.wheelsize - 1, car.wheelsize - 1]
+    } else {
+        chosenWeels = [car.wheelsize, car.wheelsize, car.wheelsize, car.wheelsize]
+    }
+
+    let producedCar = {
+        model: car.model,
+        engine: chosenEngine,
+        carriage: chosenCarriage,
+        wheels: chosenWeels
+    }
+
+    return producedCar
+}
