@@ -1,0 +1,9 @@
+function solve(city, population, treasury) {
+    let cityName = {
+        name: city,
+        population: population,
+        treasury: treasury
+    }
+
+    return cityName
+}
