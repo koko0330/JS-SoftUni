@@ -1,0 +1,18 @@
+function solve(data) {
+    townsObj = {}
+    
+    for (el of data) {
+        el = el.split(" <-> ")
+        let townName = el[0]
+        let townPopulation = Number(el[1])
+        if (townName in townsObj) {
+            townsObj[townName] += townPopulation
+        } else {
+            townsObj[townName] = townPopulation  
+        }
+    }
+
+    for (let key in townsObj) {
+        console.log(`${key} : ${townsObj[key]}`)
+    }
+}
