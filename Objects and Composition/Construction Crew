@@ -1,0 +1,10 @@
+function solve(worker) {
+    let requiredWater = 0
+    if (worker.dizziness == true) {
+        requiredWater = worker.weight * 0.1 * worker.experience
+        worker.levelOfHydrated += requiredWater
+        worker.dizziness = false
+    }
+    
+    return worker
+}
