@@ -1,0 +1,20 @@
+function solve(input) {
+    let registry = []
+    for (hero of input) {
+        let tokens = hero.split(" / ")
+        let heroName = tokens[0]
+        let heroLevel = Number(tokens[1])
+        let heroItems = ""
+        if (tokens.length > 2) {
+            let secondTokens = tokens[2].split(", ")
+            if (secondTokens) {
+                heroItems = secondTokens
+            }
+        } else {
+            heroItems = []
+        }
+        heroObject = {name: heroName, level: heroLevel, items: heroItems}
+        registry.push(heroObject)
+    }
+    return JSON.stringify(registry)
+}
