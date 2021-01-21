@@ -1,0 +1,30 @@
+function solve(input) {
+    let matrix = [];
+
+    for (let data of input) {
+        let tokens = data.split(" | ")
+        let finalTokens = []
+        for (el of tokens) {
+            el = el.replace(" |", '')
+            el = el.replace("| ", '')
+            el = el.replace(/\>\s+\</g,'');
+            finalTokens.push(el)
+        }
+        matrix.push(finalTokens) 
+        }
+    let register = []    
+    for (i = 1; i < matrix.length; i++) {
+        let name = matrix[0][0]
+        let nameValue = matrix[i][0]
+
+        let latitude =  matrix[0][1]   
+        let latitudeValue = Number(matrix[i][1]).toFixed(2)
+
+        let longitude = matrix[0][2]
+        let longitudeValue = Number(matrix[i][2]).toFixed(2)
+
+        entry = {"Town": nameValue, "Latitude": Number(latitudeValue), "Longitude": Number(longitudeValue)}
+        register.push(entry)
+    }
+    return JSON.stringify(register)
+}
