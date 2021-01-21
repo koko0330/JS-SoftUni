@@ -1,0 +1,40 @@
+function solve() {
+    canCast = (state) => ({
+        cast: (speel) => {
+            console.log(`${state.name} cast ${speel}`);
+            state.mana--;
+        }
+    })
+
+    const canFight = (state) => ({
+
+        fight: (speel) => {
+            console.log(`${state.name} slashes at the foe`);
+            state.stamina--;
+        }
+    })
+
+    const fighter = (name) => {
+
+        let state = {
+            name, 
+            health: 100,
+            stamina: 100
+        }
+
+        return Object.assign(state, canFight(state));
+    }
+
+    const mage = (name) => {
+
+        let state = {
+            name, 
+            health: 100,
+            mana: 100
+        }
+
+        return Object.assign(state, canCast(state))
+    }
+
+    return {mage:mage, fighter: fighter}
+}
