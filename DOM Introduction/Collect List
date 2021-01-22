@@ -1,0 +1,6 @@
+function extractText() {
+    let selected = [...document.getElementsByTagName('li')]
+    let elementText = selected.map(e => e.textContent)
+
+    document.getElementById('result').value = elementText.join('\n')
+}
