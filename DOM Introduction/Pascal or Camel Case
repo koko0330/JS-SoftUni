@@ -1,0 +1,28 @@
+function solve() {
+  let input = document.getElementById('text').value
+  let currentCase = document.getElementById('naming-convention').value
+
+  let res = input.toLowerCase().split(' ')
+
+  let finalRes = ''
+
+  if (currentCase === "Camel Case") {
+    for (i = 0; i < res.length; i++) {
+      if (i == 0) {
+        finalRes += res[0]
+      } else {
+        el = res[i][0].toUpperCase() + res[i].slice(1, res[i].length)
+        finalRes += el
+      }
+    }
+  } else if (currentCase === "Pascal Case") {
+    for (i = 0; i < res.length; i++) {
+      el = res[i][0].toUpperCase() + res[i].slice(1, res[i].length)
+      finalRes += el
+      }
+  } else {
+    finalRes = "Error!"
+  }
+  console.log(finalRes)
+  let resContainer = document.getElementById("result").innerHTML = finalRes
+}
