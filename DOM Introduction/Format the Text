@@ -1,0 +1,34 @@
+function solve() {
+  document.querySelector('#formatItBtn').addEventListener('click', solve);
+
+  let text = document.getElementById('input').value.split('.');
+
+  let output = document.getElementById('output')
+
+  let result = ''
+  let sentences = ''
+  let index = 0
+
+  if (text.length > 3) {
+    while (text.length > 0) {
+      if (text.length < 3) {
+        result += `<p>${text.join('.')}</p>`
+        break
+      }
+
+      sentence = text.shift()
+      sentences += sentence + '.'
+      index += 1
+
+      if (index % 3 == 0) {
+        result += `<p>${sentences}</p>`
+        sentences = ''
+        index = 0
+      }
+    }
+  } else if (text.length <= 3) {
+    result = `<p>${text.join('.')}</p>`
+  }
+
+  output.innerHTML = result
+}
