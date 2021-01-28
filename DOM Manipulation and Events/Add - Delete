@@ -1,0 +1,21 @@
+function addItem() {
+    let text = document.getElementById('newText').value;
+
+    let li = document.createElement('li');
+
+    li.textContent = text;
+
+    let list = document.getElementById('items');
+
+    list.appendChild(li);
+
+    const deleteBtn = document.createElement('a')
+    deleteBtn.textContent = '[Delete]'
+    deleteBtn.href = '#'
+    deleteBtn.addEventListener('click', onClick)
+    li.appendChild(deleteBtn)
+
+    function onClick(event) {
+        event.target.parentNode.remove()
+    }
+}
