@@ -1,0 +1,96 @@
+function lockedProfile() {
+    let eventCounter = 1
+
+    let buttons = document.querySelectorAll('button')
+
+    let buttonOne = buttons[0].addEventListener("click", onOne)
+    let buttonTwo = buttons[1].addEventListener("click", onTwo)
+    let buttonThree = buttons[2].addEventListener("click", onThree)
+
+    
+    function onOne(event) {
+        let target = event.target
+
+        let parent = target.parentNode
+
+        let lock = parent.getElementsByTagName('input')[0]
+        let unlock = parent.getElementsByTagName('input')[1]
+
+        let hiddenContent = document.getElementById('user1HiddenFields')
+
+
+        if (lock.checked == false && hiddenContent.style.display == '' && buttons[0].textContent == 'Show more') {
+            hiddenContent.style.display = 'inline'
+            buttons[0].textContent = 'Hide it'
+        } 
+
+        if (buttons[0].textContent == 'Hide it') {
+            buttons[0].addEventListener('click', onHide)
+        }
+
+        function onHide(ev) {
+            if (lock.checked == false && hiddenContent.style.display == 'inline') {
+                hiddenContent.style.display = 'none'
+                buttons[0].textContent = 'Show more'
+            }
+        }
+    }
+
+    function onTwo(event) {
+        let target = event.target
+
+        let parent = target.parentNode
+
+        let lock = parent.getElementsByTagName('input')[0]
+        let unlock = parent.getElementsByTagName('input')[1]
+
+        let hiddenContent = document.getElementById('user2HiddenFields')
+
+
+        if (lock.checked == false && hiddenContent.style.display == '') {
+            hiddenContent.style.display = 'inline'
+            buttons[1].textContent = 'Hide it'
+        } 
+
+        if (buttons[1].textContent == 'Hide it') {
+            buttons[1].addEventListener('click', onHide)
+        }
+
+        function onHide(ev) {
+            if (lock.checked == false && hiddenContent.style.display == 'inline') {
+                hiddenContent.style.display = 'none'
+                buttons[1].textContent = 'Show more'
+            }
+        }
+    }
+
+
+    function onThree(event) {
+        let target = event.target
+
+        let parent = target.parentNode
+
+        let lock = parent.getElementsByTagName('input')[0]
+        let unlock = parent.getElementsByTagName('input')[1]
+
+        let hiddenContent = document.getElementById('user3HiddenFields')
+
+
+        if (lock.checked == false && hiddenContent.style.display == '') {
+            hiddenContent.style.display = 'inline'
+            buttons[2].textContent = 'Hide it'
+        } 
+
+        if (buttons[2].textContent == 'Hide it') {
+            buttons[2].addEventListener('click', onHide)
+        }
+
+        function onHide(ev) {
+            if (lock.checked == false && hiddenContent.style.display == 'inline') {
+                hiddenContent.style.display = 'none'
+                buttons[2].textContent = 'Show more'
+            }
+        }
+    }
+
+}
