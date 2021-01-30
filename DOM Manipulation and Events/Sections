@@ -1,0 +1,20 @@
+function create(words) {
+   let initialDiv = document.getElementById('content')
+
+   for (i of words) {
+      let div = document.createElement('div')
+      let p = document.createElement('p')
+      p.textContent = i
+      p.style.display = 'none'
+      div.appendChild(p)
+      div.addEventListener('click', onClick)
+      initialDiv.appendChild(div)
+
+   }
+
+   function onClick(event) {
+      target = event.target
+      p = target.children[0]
+      p.style.display = 'inline'
+   }
+}
