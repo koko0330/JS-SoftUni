@@ -1,0 +1,86 @@
+function solve() {
+  let input = document.getElementsByTagName('textarea')[0]
+  let output = document.getElementsByTagName('textarea')[1]
+
+  let genBtn = document.getElementsByTagName('button')[0]
+  let buyBtn = document.getElementsByTagName('button')[1]
+
+  let table = document.getElementsByTagName('tbody')[0]
+
+
+  genBtn.addEventListener('click', () => {
+    let arr = JSON.parse(input.value)
+
+    for (let piece of arr) {
+
+      let tr = document.createElement('tr')
+
+      // IMAGE
+
+      let tdPic = document.createElement('td')
+      let img = document.createElement('img')
+      img.setAttribute('src', piece.img)
+      tdPic.appendChild(img)
+      
+      // NAME
+
+      let tdName = document.createElement('td')
+      let pName = document.createElement('p')
+      pName.textContent = piece.name
+      tdName.appendChild(pName)
+
+      // PRICE
+
+      let tdPrice = document.createElement('td')
+      let pPrice = document.createElement('p')
+      pPrice.textContent = Number(piece.price)
+      tdPrice.appendChild(pPrice)
+
+      // DECORATOR
+
+      let tdDecFact = document.createElement('td')
+      let pDecFact = document.createElement('p')
+      pDecFact.textContent = Number(piece.decFactor)
+      tdDecFact.appendChild(pDecFact)
+
+      // CHECKBOX
+
+      let tdcheckbox = document.createElement('td')
+      let check = document.createElement('input')
+      check.setAttribute("type", "checkbox")
+      tdcheckbox.appendChild(check)
+      
+      tr.appendChild(tdPic)
+      tr.appendChild(tdName)
+      tr.appendChild(tdPrice)
+      tr.appendChild(tdDecFact)
+      tr.appendChild(tdcheckbox)
+
+      table.appendChild(tr)
+  
+    }
+  })
+
+  buyBtn.addEventListener('click', () => {
+    let checkboxes = document.getElementsByTagName('input')
+
+    let result = []
+    let totalPrice = 0
+    let avgFactor = 0
+
+    for (let el of checkboxes) {
+      if (el.checked == true) {
+        let parent = el.parentNode.parentNode
+        result.push(`${parent.children[1].textContent}`)
+        totalPrice += Number(parent.children[2].textContent)
+        avgFactor += Number(parent.children[3].textContent)
+      }
+    }
+
+    
+    output.textContent = `Bought furniture: ${result.join(', ')}\n`
+    output.textContent += `Total price: ${totalPrice.toFixed(2)}\n`
+    output.textContent += `Average decoration factor: ${avgFactor / result.length}`
+    
+  })
+}
