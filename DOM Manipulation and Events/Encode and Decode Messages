@@ -1,0 +1,37 @@
+function encodeAndDecodeMessages() {
+    let message = document.getElementsByTagName('textarea')[0]
+
+    let encrypted = document.getElementsByTagName('textarea')[1]
+
+    let encryptBtn = document.getElementsByTagName('button')[0].addEventListener('click', onEncode)
+
+    let decodeBtn = document.getElementsByTagName('button')[1].addEventListener('click', onDecode)
+
+    function onEncode(event) {
+        let finalMessage = ''
+
+        let text = message.value
+
+        for (i in text) {
+            let code = (text.charCodeAt(i) + 1)
+            let letter = String.fromCharCode(code)
+            finalMessage += letter
+        }
+        encrypted.value = finalMessage
+        message.value = ''
+    }
+
+    function onDecode(event) {
+        let finalMessage = ''
+
+        let text = encrypted.value
+
+        for (i in text) {
+            let code = (text.charCodeAt(i) - 1)
+            let letter = String.fromCharCode(code)
+            finalMessage += letter
+        }
+        encrypted.value = finalMessage
+    }
+
+}
