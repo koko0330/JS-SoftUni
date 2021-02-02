@@ -1,0 +1,19 @@
+function solve(data, criteria) {
+    function print(employee, index) {
+        console.log(`${index}. ${employee['first_name']} ${employee['last_name']} - ${employee.email}`);
+    }
+ 
+    let count = 0;
+    JSON.parse(data).forEach((employee, index) => {
+        if(criteria === 'all') {
+            print(employee, count);
+            count++;
+        } else {
+            let [crit, value] = criteria.split('-').filter(x => x !== '');
+            if(employee[crit] === value) {
+                print(employee, count);
+                count++;
+            }
+        }
+    });
+}
