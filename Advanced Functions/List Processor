@@ -1,0 +1,21 @@
+function solve(commands) {
+    let res = [];
+    for(const command of commands) {
+        if(command === 'print') {
+            if (res.length == 1) {
+                console.log(res[0] + ",")
+            } else {
+            console.log(res.join(','));
+            }
+        } else if(command.includes('add')) {
+            let value = command.split(' ')[1];
+            res.push(value);
+        } else if(command.includes('remove')) {
+            let value = command.split(' ')[1];
+            while(res.includes(value)) {
+                let index = res.indexOf(value);
+                res.splice(index, 1);
+            }
+        }
+    }
+}
