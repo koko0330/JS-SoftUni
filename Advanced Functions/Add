@@ -1,0 +1,7 @@
+function solution(num) {
+    return add
+
+    function add(n) {
+        return n + num
+    }
+}
