@@ -1,0 +1,27 @@
+function solution() {
+    let str = ''
+
+    return {
+        append,
+        removeStart,
+        removeEnd,
+        print
+    }
+
+    function append(string) {
+        str += string
+    }
+    
+    function removeStart(n) {
+        str = str.substring(n)
+    }
+
+    function removeEnd(n) {
+        str = str.slice(0, -n)
+    }
+    
+    function print() {
+        console.log(str)
+    }
+
+}
