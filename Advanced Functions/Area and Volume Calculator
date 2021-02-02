@@ -1,0 +1,16 @@
+function solve(area, vol, input) {
+    let arr = JSON.parse(input);
+    
+    let result = [];
+
+    for (let figure of arr) {
+        const output = {
+            area: Math.abs(area.call(figure)),
+            volume: Math.abs(vol.call(figure))
+        };
+        
+        result.push(output)
+    }
+
+    return result
+}
