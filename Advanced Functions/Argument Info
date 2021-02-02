@@ -1,0 +1,21 @@
+function solve(...input) {
+    let reps = {}
+
+    for (item of input) {
+        type = typeof item
+        console.log(`${type}: ${item}`)
+        if (reps[type] != undefined) {
+            reps[type] += 1
+        } else {
+            reps[type] = 1
+        }
+    }
+
+    const final = Object.entries(reps)
+    .sort(([,a],[,b]) => b-a)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
+    for (key in final) {
+        console.log(`${key} = ${reps[key]}`)
+    }
+}
