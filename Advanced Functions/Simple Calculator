@@ -1,0 +1,19 @@
+function solve() {
+    let element1 = undefined
+    let element2 = undefined
+    let result = undefined
+
+    return {
+        init: (selector1, selector2, resultSelector) => {
+            element1 = document.querySelector(selector1)
+            element2 = document.querySelector(selector2)
+            result = document.querySelector(resultSelector)
+        },
+        add: () => {
+            result.value = Number(element1.value) + Number(element2.value)
+        }, 
+        subtract: () => {
+            result.value = Number(element1.value) - Number(element2.value)
+        }
+    }
+}
