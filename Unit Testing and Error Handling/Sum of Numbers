@@ -1,0 +1,13 @@
+describe ('Sum function', () => {
+    it ('sums single number', () => {
+        expect(sum([1])).to.equal(1);
+    });
+
+    it ('sums different number', () => {
+        expect(sum([1, 2, 3])).to.equal(6);
+    });
+
+    it ('sums multple number', () => {
+        expect(sum([1, 1])).to.equal(2);
+    });
+})
