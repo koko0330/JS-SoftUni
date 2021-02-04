@@ -1,0 +1,143 @@
+function validate() {
+    let username = document.getElementById('username')
+    let email = document.getElementById('email')
+    let password = document.getElementById('password')
+    let confirmPass = document.getElementById('confirm-password')
+    let checkbox = document.getElementById('company')
+    let companyInfo = document.getElementById('companyInfo')
+    let companyNumber = document.getElementById('companyNumber')
+    let submit = document.getElementById('submit')
+    let validBlock = document.getElementById('valid')
+
+    let reUsername = /^[A-Za-z0-9]+$/gm;
+    let reEmail = /^\w*@\w*\.[\w\.]*$/gm;
+    let rePass= /^\w+$/gm
+    let reConfPass= /^\w+$/gm
+
+
+    let correctUsername = ''
+    let correctEmail = ''
+    let correctPass = ''
+    let correctConfPass = ''
+    let passwordsMatch = ''
+    let validCompanyNumber = ''
+
+
+ 
+    checkbox.addEventListener('change', onCheck) 
+
+    function onCheck(ev) {
+        ev.preventDefault()
+        if (checkbox.checked == true) {
+            companyInfo.style.display = 'block'
+
+        } else {
+            companyInfo.style.display = 'none'
+        }
+    }
+
+
+    submit.addEventListener('click', onSubmit)  
+
+    function onSubmit(event) {
+        event.preventDefault()
+
+        if (username.value.length >= 3 && username.value.length <= 20 && reUsername.test(username.value)) {
+            correctUsername = true
+        } else {
+            correctUsername = false
+        }      
+        
+    
+        if (reEmail.test(email.value)) {
+            correctEmail = true
+        } else {
+            correctEmail = false
+        }
+        
+    
+        if (password.value.length >= 5 && password.value.length <= 15 && rePass.test(password.value)) {
+            correctPass = true
+        } else {
+            correctPass = false
+        }       
+            
+    
+        if (confirmPass.value.length >= 5 && confirmPass.value.length <= 15 && reConfPass.test(confirmPass.value)) {
+            correctConfPass = true
+        } else {
+            correctConfPass = false
+        }
+    
+        if (password.value != confirmPass.value) {
+            passwordsMatch = false
+        } else {
+            passwordsMatch = true
+        }
+
+
+        if (checkbox.checked == true) {
+            if (companyNumber.value >= 1000 && companyNumber.value <= 9999) {
+                validCompanyNumber = true
+            } else {
+                validCompanyNumber = false
+            }
+        }
+
+
+        if (correctUsername == false) {
+            username.style.borderColor = "red"
+        } else {
+            username.style.borderColor = "none"
+        }
+
+        if (correctEmail == false) {
+            email.style.borderColor = "red"
+        } else {
+            email.style.borderColor = "none"
+        }
+
+        if (correctPass == false) {
+            password.style.borderColor = "red"
+        } else {
+            password.style.borderColor = "none"
+        }
+
+        if (correctConfPass == false) {
+            confirmPass.style.borderColor = "red"
+        } else {
+            confirmPass.style.borderColor = "none"
+        }
+
+        if (passwordsMatch == false) {
+            password.style.borderColor = "red"
+            confirmPass.style.borderColor = "red"
+        } else {
+            password.style.borderColor = "none"
+            confirmPass.style.borderColor = "none"
+        }
+
+        if (checkbox.checked == true) {
+            if (validCompanyNumber == false) {
+                companyNumber.style.borderColor = "red"
+            } else {
+                companyNumber.style.borderColor = "none"
+            }
+        }
+
+        if (checkbox.checked == true) {
+            if (validCompanyNumber == true && correctConfPass == true && correctPass == true && passwordsMatch == true && correctEmail == true && correctUsername == true) {
+                validBlock.style.display = 'block'
+            } else {
+                validBlock.style.display = 'none'
+            }
+        } else {
+            if (correctConfPass == true && correctPass == true && passwordsMatch == true && correctEmail == true && correctUsername == true) {
+                validBlock.style.display = 'block'
+            } else {
+                validBlock.style.display = 'none'
+            }
+        }
+    }
+
+}
