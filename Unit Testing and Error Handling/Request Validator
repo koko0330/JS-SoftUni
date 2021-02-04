@@ -1,0 +1,91 @@
+function solve(obj) {
+    let method = obj.method;
+    let isMethodValid = false;
+
+    if (obj.method != undefined) {
+        switch (method) {
+            case "GET":
+            case "POST":
+            case "DELETE":
+            case "CONNECT":
+                isMethodValid = true;
+                break;
+            default:
+                if (isMethodValid === false) {
+                    throw new Error("Invalid request header: Invalid Method");
+                }
+                break;
+        }
+    } else {
+        isMethodValid === false
+        throw new Error("Invalid request header: Invalid Method");
+    }
+    
+    let isUriValid = false
+
+    if (obj.uri != undefined) {
+        let uri = obj.uri;
+        let pattern = /\.*[a-z0-9]+\.*[a-z0-9]*\.*[a-z0-9]*/gim;
+        if (uri.length > 0) {
+            let matchedUri = uri.match(pattern)[0];
+            if (matchedUri.length === uri.length) {
+                isUriValid = true;
+            }
+        }
+        if (isUriValid === false) {
+            throw new Error("Invalid request header: Invalid URI");
+        }
+    } else {
+        isUriValid === false;
+        throw new Error("Invalid request header: Invalid URI");
+    }
+    
+
+    let isVersionValid = false;
+    if (obj.version != undefined) {
+        let version = obj.version;
+        switch (version) {
+            case "HTTP/0.9":
+            case "HTTP/1.0":
+            case "HTTP/1.1":
+            case "HTTP/2.0":
+                isVersionValid = true;
+                break;
+            default:
+                if (isVersionValid === false) {
+                    throw new Error("Invalid request header: Invalid Version");
+                }
+                break;
+        }
+    } else {
+        isVersionValid === false
+        throw new Error("Invalid request header: Invalid Version");
+    }
+
+ 
+    let isMessageValid = true;
+
+    if (obj.message != undefined) {
+        let message = obj.message;
+        let specialChars = /[\<\>\\\&\'\"]/g;
+        if (message.match(specialChars)) {
+            isMessageValid = false;
+            if (isMessageValid === false) {
+                throw new Error("Invalid request header: Invalid Message");
+            }
+        }
+    } else {
+        isMessageValid === false
+        throw new Error("Invalid request header: Invalid Message");
+    }
+ 
+    // console.log(isMethodValid, isUriValid, isVersionValid, isMessageValid)
+    // console.log(method, uri, version, message)
+ 
+    if (isMethodValid === true
+        && isUriValid === true
+        && isVersionValid === true
+        && isMessageValid === true) {
+        return obj;
+    }
+}
