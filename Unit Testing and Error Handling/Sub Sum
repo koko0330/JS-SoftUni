@@ -1,0 +1,41 @@
+function solve(arr, start, end) {
+    let sum = 0
+
+    if (typeof arr != 'object') {
+        return NaN;
+    } else {
+
+        if (start < 0) {
+            start = 0;
+        }
+
+        if (end > arr.length) {
+            end = arr.length -1;
+        }
+
+        for (i = start; i <= end; i++) {
+            if (arr.length == 0) {
+                sum = 0
+                break
+            }
+
+            if (typeof arr[i] != 'number') {
+                return NaN;
+                break
+            } else {
+                sum += arr[i];
+            }
+        }
+
+        function isFloat(sum){
+            return Number(sum) === n && n % 1 !== 0;
+        }
+
+        if (isFloat == true) {
+            return sum.toFixed(1)
+        } else {
+            return sum
+        }
+    }
+
+}
