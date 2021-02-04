@@ -1,0 +1,58 @@
+describe ('rgbToHexColor function', () => {
+    it ('not a string returns undefined', () => {
+        expect(lookupChar(1, 1)).to.equal(undefined);
+    });
+
+    it ('not a string returns undefined', () => {
+        expect(lookupChar([1], 1)).to.equal(undefined);
+    });
+
+    it ('not a string returns undefined', () => {
+        expect(lookupChar(1, [1])).to.equal(undefined);
+    });
+
+    it ('not a string returns undefined', () => {
+        expect(lookupChar({1: 1}, 1)).to.equal(undefined);
+    });
+
+    it ('not a string returns undefined', () => {
+        expect(lookupChar(1, {1: 1})).to.equal(undefined);
+    });
+
+    it ('not a number returns undefined', () => {
+        expect(lookupChar("fsdfs", "fsdfs")).to.equal(undefined);
+    });
+
+    it ('floating point returns undefined', () => {
+        expect(lookupChar("fsdfs", 1.1)).to.equal(undefined);
+    });
+
+    it ('bigger index returns Incorrect index', () => {
+        expect(lookupChar("fsdfs", 2345)).to.equal("Incorrect index");
+    });
+
+    it ('smaller index returns Incorrect index', () => {
+        expect(lookupChar("fsdfs", -1)).to.equal("Incorrect index");
+    });
+
+    it ('equal to length index returns Incorrect index', () => {
+        expect(lookupChar("ffs", 3)).to.equal("Incorrect index");
+    });
+
+    it ('index returns the correct cahr', () => {
+        expect(lookupChar("ffs", 1)).to.equal("f");
+    });
+
+    it ('index 0 returns the first char', () => {
+        expect(lookupChar("ffs", 0)).to.equal("f");
+    });
+
+    it ('index 0 returns the first char', () => {
+        expect(lookupChar("ffs", 2)).to.equal("s");
+    });
+
+
+    it ('index returns the correct cahr', () => {
+        expect(lookupChar("", 0)).to.equal("Incorrect index");
+    });
+})
