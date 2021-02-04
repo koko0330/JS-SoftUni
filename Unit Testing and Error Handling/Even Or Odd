@@ -1,0 +1,14 @@
+describe ('rgbToHexColor function', () => {
+    it ('returns undefined', () => {
+        expect(isOddOrEven(1)).to.equal(undefined);
+    });
+
+    it ('returns even', () => {
+        expect(isOddOrEven("аа")).to.equal('even');
+    });
+
+    it ('returns odd', () => {
+        expect(isOddOrEven("а")).to.equal('odd');
+    });
+
+})
