@@ -1,0 +1,69 @@
+describe ('mathEnforcer', function() {
+    describe ('addFive', function() {
+        it ('addFive not a string returns undefined', () => {
+            expect(mathEnforcer.addFive("dgfg")).to.equal(undefined);
+        });
+
+        it ('addFive returns the correct result', () => {
+            expect(mathEnforcer.addFive(5)).to.equal(10);
+        });
+
+        it ('addFive returns the correct result', () => {
+            expect(mathEnforcer.addFive(-5)).to.equal(0);
+        });
+
+        it ('addFive returns the correct result', () => {
+            expect(mathEnforcer.addFive(0.5)).to.equal(5.5);
+        });
+
+    }),
+
+    describe ('subtractTen', function() {
+        it ('subtractTen not a string returns undefined', () => {
+            expect(mathEnforcer.subtractTen("dgfg")).to.equal(undefined);
+        });
+
+        it ('subtractTen returns the correct result', () => {
+            expect(mathEnforcer.subtractTen(15)).to.equal(5);
+        });
+
+        it ('subtractTen returns the correct result', () => {
+            expect(mathEnforcer.subtractTen(-5)).to.equal(-15);
+        });
+
+        it ('subtractTen returns the correct result', () => {
+            expect(mathEnforcer.subtractTen(11.5)).to.equal(1.5);
+        });                
+
+    }),
+
+    describe ('sum', function() {
+        it ('sum not a string returns undefined', () => {
+            expect(mathEnforcer.sum("dgfg", 1)).to.equal(undefined);
+        });
+
+        it ('sum not a string returns undefined', () => {
+            expect(mathEnforcer.sum(1, "dgfg")).to.equal(undefined);
+        });
+
+        it ('sum returns the correct result', () => {
+            expect(mathEnforcer.sum(1, 1)).to.equal(2);
+        });
+
+        it ('sum returns the correct result', () => {
+            expect(mathEnforcer.sum(1, -1)).to.equal(0);
+        });
+
+        it ('sum returns the correct result', () => {
+            expect(mathEnforcer.sum(-1, -1)).to.equal(-2);
+        });
+
+        it ('sum returns the correct result', () => {
+            expect(mathEnforcer.sum(1.5, 1)).to.equal(2.5);
+        });
+
+        it ('sum returns the correct result', () => {
+            expect(mathEnforcer.sum(1.5, -0.5)).to.equal(1);
+        });
+    })
+})
