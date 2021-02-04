@@ -1,0 +1,43 @@
+describe ('isSymmetric function', () => {
+    it ('returns true', () => {
+        expect(isSymmetric([1])).to.equal(true);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric(1)).to.equal(false);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric([1, 1])).to.equal(true);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric([1, '1'])).to.equal(false);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric([1, 2])).to.equal(false);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric('string')).to.equal(false);
+    });
+
+    it ('returns false', () => {
+        myObj = {}
+        expect(isSymmetric(myObj)).to.equal(false);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric([1, 1, 1])).to.equal(true);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric(["a", "a"])).to.equal(true);
+    });
+
+    it ('returns false', () => {
+        expect(isSymmetric(["a", "b"])).to.equal(false);
+    });
+
+})
