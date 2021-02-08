@@ -1,0 +1,72 @@
+describe ('paymentPackage', function() {
+
+    it ('constructor', () => {
+        let instance = new PaymentPackage('Name', 100);
+        expect(instance._name).to.equal('Name');
+        expect(instance._value).to.equal(100);
+        expect(instance._VAT).to.equal(20);
+        expect(instance._active).to.equal(true);
+    });
+
+    it ('name returns the name correctly', () => {
+        let instance = new PaymentPackage('Name', 100)
+        expect(instance.name).to.equal('Name');
+
+        instance.name = 'Pesho';
+        expect(instance.name).to.equal('Pesho');
+
+        assert.throw(() => { instance.name = ''}, 'Name must be a non-empty string');
+        assert.throw(() => { instance.name = 1}, 'Name must be a non-empty string');
+        assert.throw(() => { instance.name = -1}, 'Name must be a non-empty string');
+    });
+
+    it ('value', () => {
+        let instance = new PaymentPackage('Name', 100);
+        expect(instance.value).to.equal(100);
+
+        instance.value = 20;
+        expect(instance.value).to.equal(20);
+
+        instance.value = 0;
+        expect(instance.value).to.equal(0);
+
+        assert.throw(() => { instance.value = 'Pesho'}, 'Value must be a non-negative number');
+        assert.throw(() => { instance.value = ''}, 'Value must be a non-negative number');
+        assert.throw(() => { instance.value = -1}, 'Value must be a non-negative number');
+    });
+
+    it ('VAT', () => {
+        let instance = new PaymentPackage('Name', 100);
+        expect(instance.VAT).to.equal(20);
+
+        instance.VAT = 10;
+        expect(instance.VAT).to.equal(10);
+
+        assert.throw(() => { instance.VAT = 'Pesho'}, 'VAT must be a non-negative number');
+        assert.throw(() => { instance.VAT = ''}, 'VAT must be a non-negative number');
+        assert.throw(() => { instance.VAT = -1}, 'VAT must be a non-negative number');
+    });
+
+    it ('ACTIVE', () => {
+        let instance = new PaymentPackage('Name', 100);
+        expect(instance.active).to.equal(true);
+
+        instance.active = false;
+        expect(instance.active).to.equal(false);
+
+        assert.throw(() => { instance.active = 'Pesho'}, 'Active status must be a boolean');
+        assert.throw(() => { instance.active = ''}, 'Active status must be a boolean');
+        assert.throw(() => { instance.active = -1}, 'Active status must be a boolean');
+        assert.throw(() => { instance.active = 1}, 'Active status must be a boolean');
+        assert.throw(() => { instance.active = 0}, 'Active status must be a boolean');
+    });
+
+    it ('To String', () => {
+        let instance = new PaymentPackage('Name', 100);
+        expect(instance.toString()).to.equal('Package: Name\n- Value (excl. VAT): 100\n- Value (VAT 20%): 120');
+
+        instance.active = false;
+        expect(instance.toString()).to.equal('Package: Name (inactive)\n- Value (excl. VAT): 100\n- Value (VAT 20%): 120');
+    });
+ 
+})
