@@ -1,0 +1,27 @@
+function solve(tickets, criteria) {
+    let ticketsList = []
+
+    class Ticket {
+        constructor(destination, price, status) {
+            this.destination = destination;
+            this.price = price;
+            this.status = status;
+        }
+    }
+
+    for (let t of tickets) {
+        let tokens = t.split('|');
+        let ticketDest = tokens[0];
+        let ticketPrice = Number(tokens[1]);
+        let ticketStatus = tokens[2];
+        t = new Ticket(ticketDest, ticketPrice, ticketStatus);
+        ticketsList.push(t);
+    }
+    if (criteria == 'price') {
+        return ticketsList.sort((a,b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
+    } else if (criteria == 'destination') {
+        return ticketsList.sort((a,b) => (a.destination.localeCompare(b.destination)));
+    } else if (criteria == 'status') {
+        return ticketsList.sort((a,b) => (a.status.localeCompare(b.status)));
+    }
+}
