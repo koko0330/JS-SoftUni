@@ -1,0 +1,33 @@
+class Person {
+    constructor(firstName, lastname) {
+        this._firstName = firstName
+        this._lastName = lastname
+    }
+
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`
+    }
+
+    set fullName(names) {
+        let tokens = names.split(" ")
+        this._firstName = tokens[0]
+        this._lastName = tokens[1]
+        return `${this._firstName} ${this._lastName}`
+    }
+
+    get firstName() {
+        return this._firstName
+    }
+
+    set firstName(newname) {
+        this._firstName = newname
+    }
+
+    get lastName() {
+        return this._lastName
+    }
+
+    set lastName(newLastName) {
+        this._lastName = newLastName
+    }
+}
