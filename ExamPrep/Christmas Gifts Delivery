@@ -1,0 +1,70 @@
+function solution() {
+    let gift = document.getElementsByTagName('input')[0]
+    let addBtn = document.getElementsByTagName('button')[0].addEventListener('click', onClick)
+    let listGiftsUl = document.querySelectorAll('.card>ul')[0]
+    let liEls = []
+
+    let sentGiftsUl = document.querySelectorAll('.card>ul')[1]
+
+    let discaredGiftsUl = document.querySelectorAll('.card>ul')[2]
+
+    function onClick(ev) {
+        let li = document.createElement('li')
+        li.classList.add('gift')
+        let liContent = gift.value
+        li.textContent = liContent
+
+        let sendBtn = document.createElement('button')
+        sendBtn.textContent = 'Send'
+        sendBtn.setAttribute('id', 'sendButton')
+
+        let discardBtn = document.createElement('button')
+        discardBtn.textContent = 'Discard'
+        discardBtn.setAttribute('id', 'discardButton')
+
+        li.appendChild(sendBtn)
+        li.appendChild(discardBtn)
+
+        liEls.push(li)
+        liEls = liEls.sort((a, b) => a.textContent.localeCompare(b.textContent))
+
+        for (el of liEls) {
+            listGiftsUl.appendChild(el)
+        }
+        gift.value = ''
+
+        let allAddBtns = [...document.querySelectorAll('#sendButton')]
+
+        for (let btAdd of allAddBtns) {
+            btAdd.addEventListener('click', onAdd)
+        }
+
+        let allDiscarddBtns = [...document.querySelectorAll('#discardButton')]
+
+        for (let btRemove of allDiscarddBtns) {
+            btRemove.addEventListener('click', onDiscard)
+        }
+    }    
+
+    function onAdd(ev) {
+        let itemToMove = ev.target.parentNode
+        let btnOneToRemove = itemToMove.children[0]
+        let btnTwoToRemove = itemToMove.children[1]
+        btnOneToRemove.remove()
+        btnTwoToRemove.remove()
+        sentGiftsUl.appendChild(itemToMove)
+
+        liEls = []
+    }
+
+    function onDiscard(ev) {
+        let itemToMove = ev.target.parentNode
+        let btnOneToRemove = itemToMove.children[0]
+        let btnTwoToRemove = itemToMove.children[1]
+        btnOneToRemove.remove()
+        btnTwoToRemove.remove()
+        discaredGiftsUl.appendChild(itemToMove)
+
+        liEls = []
+    }
+}
