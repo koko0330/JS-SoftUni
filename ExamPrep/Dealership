@@ -1,0 +1,48 @@
+describe('test', () => {
+    describe('newCarCost', () => {
+        it('returns original price when model unsupp', () => {
+            //очаквам при подаде кола и цена която не влиза в обекта, да ми върне същата цена без отстъпка  --- 1 === 1
+            expect(dealership.newCarCost('a', 1)).to.equal(1);
+        });
+        //очаквам при кола която се намира в обекта да ми върне някакво намаление ---- 30000 * 0,5 = 15000;
+        it('returns discounted price', () => {
+            expect(dealership.newCarCost('Audi A4 B8', 30000)).to.equal(15000);
+        });
+        //model is supp - price reduced by model value
+        //model not supp -> no discount
+    });
+ 
+    describe('carEquipment', () => {
+        
+        it('single element, single pick', () => {
+            //очакваме като извикаме dealership.carequipment и му подам един параметър и го извикам после, да ми се върне съшият параметър; с to.deep.equal() сръвнявам масиви в chai
+            expect(dealership.carEquipment(['a'], [0])).to.deep.equal(['a']);
+        });
+ 
+        it('test overloading multiple elements, multiple picks', () => {
+            expect(dealership.carEquipment(['a', 'b', 'c'], [0, 2])).to.deep.equal(['a', 'c']);
+        });
+        
+        it('test overloading multiple elements, single pick', () => {
+            expect(dealership.carEquipment(['a', 'b', 'c'], [1])).to.deep.equal(['b']);
+        });
+ 
+ 
+    });
+ 
+    describe('euroCategory', () => {
+        it('categpry is below treshold', () => {
+            expect(dealership.euroCategory(1)).to.equal('Your euro category is low, so there is no discount from the final price!');
+        });
+        // 
+        it('categpry is above treshold', () => {
+            //14250 идва от това че функцията eurocategory взима тази определена кола 'Audi A4 B8', 30000'' от нея вадим 15000 защото в обекта на newCar е на 15000. и от тези 15000 махаме 0.5% което винаги дава 14 250!! фиксирана сметка
+            expect(dealership.euroCategory(5)).to.equal(`We have added 5% discount to the final price: 14250.`);
+        });
+        //  - гранично
+ 
+        it('categpry is edge treshold', () => {
+            expect(dealership.euroCategory(4)).to.equal(`We have added 5% discount to the final price: 14250.`);
+        });
+    });
+});
