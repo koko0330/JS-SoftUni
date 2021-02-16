@@ -1,0 +1,103 @@
+describe ('HolidayPackage', function() {
+
+    it ('constructor', () => {
+        let instance = new HolidayPackage('Madrid', 'Summer')
+        expect(instance.destination).to.equal('Madrid');
+        expect(instance.season).to.equal('Summer');
+        expect(instance.vacationers.length).to.equal(0);
+        expect(instance._insuranceIncluded).to.equal(false);
+    });
+
+    it ('insuranceIncluded testing', () => {
+        let instance = new HolidayPackage('Madrid', 'Summer')
+        expect(instance.insuranceIncluded).to.equal(false);
+
+        instance.insuranceIncluded = true
+        expect(instance._insuranceIncluded).to.equal(true);
+
+        assert.throw(() => { instance.insuranceIncluded = -1}, 'Insurance status must be a boolean');
+        assert.throw(() => { instance.insuranceIncluded = [1, 2, 3]}, 'Insurance status must be a boolean');
+        assert.throw(() => { instance.insuranceIncluded = 'whatever'}, 'Insurance status must be a boolean');
+        
+    });
+
+    it ('testing function showVacationers', () => {
+        let instance = new HolidayPackage('Madrid', 'Summer')
+
+        expect(instance.showVacationers()).to.equal("No vacationers are added yet");
+        expect(instance.vacationers.length).to.equal(0);
+
+        instance.addVacationer('Ivan Ivanov')
+        expect(instance.showVacationers()).to.equal('Vacationers:\nIvan Ivanov');
+        expect(instance.vacationers.length).to.equal(1);
+
+        instance.addVacationer('Stoqn Ivanov')
+        expect(instance.showVacationers()).to.equal('Vacationers:\nIvan Ivanov\nStoqn Ivanov');
+        expect(instance.vacationers.length).to.equal(2);
+   
+    });
+
+    it ('testing function addVacationer', () => {
+        let instance = new HolidayPackage('Madrid', 'Summer')
+        expect(instance.vacationers.length).to.equal(0);
+
+        assert.throw(() => { instance.addVacationer('Pesho')}, 'Name must consist of first name and last name')
+        expect(instance.vacationers.length).to.equal(0);
+        assert.throw(() => { instance.addVacationer('Pesho Ivanov Ivanov')}, 'Name must consist of first name and last name')
+        expect(instance.vacationers.length).to.equal(0);
+
+        assert.throw(() => { instance.addVacationer(1)}, 'Vacationer name must be a non-empty string')
+        expect(instance.vacationers.length).to.equal(0);
+        assert.throw(() => { instance.addVacationer(' ')}, 'Vacationer name must be a non-empty string')
+        expect(instance.vacationers.length).to.equal(0);
+
+        instance.addVacationer('Ivan Ivanov')
+        expect(instance.showVacationers()).to.equal('Vacationers:\nIvan Ivanov');
+        expect(instance.vacationers.length).to.equal(1);
+    });
+
+    it ('testing function generateHolidayPackage', () => {
+        let instanceOne = new HolidayPackage('Madrid', 'Summer')
+        expect(instanceOne.vacationers.length).to.equal(0);
+
+        assert.throw(() => { instanceOne.generateHolidayPackage()}, 'There must be at least 1 vacationer added')
+
+
+        let instanceTwo = new HolidayPackage('Barcelona', 'Summer')
+        instanceTwo.addVacationer('Ivan Ivanov')
+        expect(instanceTwo.vacationers.length).to.equal(1);
+        let totalPrice = instanceTwo.vacationers.length * 400
+
+        if (this.season === "Summer" || this.season === "Winter") {
+            totalPrice += 200 * instanceTwo.vacationers.length
+            expect(totalPrice).to.equal((instanceTwo.vacationers.length * 400) + (200 * instanceTwo.vacationers.length));
+        }
+
+        expect(instanceTwo.generateHolidayPackage()).to.equal('Holiday Package Generated\nDestination: Barcelona\nVacationers:\nIvan Ivanov\nPrice: 600')
+
+
+        let instanceThree = new HolidayPackage('Spain', 'Winter')
+        instanceThree.addVacationer('Ivan Ivanov')
+        expect(instanceThree.vacationers.length).to.equal(1);
+        totalPrice = instanceThree.vacationers.length * 400
+        this.season = 'Fall'
+        expect(totalPrice).to.equal(400);
+
+        if (this.insuranceIncluded = true) {
+            totalPrice += 100 * instanceThree.vacationers.length
+            expect(totalPrice).to.equal(500);
+        }
+
+        expect(instanceThree.generateHolidayPackage()).to.equal('Holiday Package Generated\nDestination: Spain\nVacationers:\nIvan Ivanov\nPrice: 600')
+        
+    });
+
+    // it ('To String', () => {
+    //     let instance = new PaymentPackage('Name', 100)
+    //     expect(instance.toString()).to.equal('Package: Name\n- Value (excl. VAT): 100\n- Value (VAT 20%): 120');
+
+    //     instance.active = false
+    //     expect(instance.toString()).to.equal('Package: Name (inactive)\n- Value (excl. VAT): 100\n- Value (VAT 20%): 120');
+    // });
+ 
+})
