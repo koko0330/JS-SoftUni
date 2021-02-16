@@ -1,0 +1,89 @@
+class ChristmasDinner {
+    constructor(budget) {
+        if (budget < 0) {
+            throw new Error("The budget cannot be a negative number")
+        } else {
+            this.budget = budget
+        }
+        this.dishes = []
+        this.products = []
+        this.guests = {}
+    }
+
+    shopping(product) {
+        let item = product[0]
+        let itemPrice = product[1]
+        if (this.budget - itemPrice < 0) {
+            throw new Error("Not enough money to buy this product")
+        } else {
+            this.budget -= itemPrice
+            this.products.push(item)
+            return `You have successfully bought ${item}!`
+        }
+    }
+
+    recipes(recipe) {
+        let somethingMissing = false
+        let missingCounter = 0
+        for (let p of recipe.productsList) {
+            if (!this.products.includes(p)) {
+                somethingMissing = true
+                missingCounter += 1
+                throw new Error("We do not have this product")
+            } else (
+                somethingMissing = false
+            )
+        }
+        if (missingCounter == 0) {
+            this.dishes.push(recipe)
+            return `${recipe.recipeName} has been successfully cooked!`
+        }
+    }
+
+    inviteGuests(name, dish) {
+        let haveDish = false
+
+        for (let d of this.dishes) {
+            if (d.recipeName == dish) {
+                haveDish = true
+            }
+        }
+
+        if (haveDish == false) {
+            throw new Error("We do not have this dish")
+        }   
+
+        let GuestNotInList = true
+        for (let g in this.guests) {
+            if (g == name) {
+                GuestNotInList = false
+            }
+        }
+
+        if (GuestNotInList == false) {
+            throw new Error("This guest has already been invited")
+        }
+        
+        if (GuestNotInList == true && haveDish == true) {
+            this.guests[name] = dish
+            return `You have successfully invited ${name}!`
+        }
+    }
+
+    showAttendance() {
+        let result = []
+
+        for (let g in this.guests) {
+            let meal = this.guests[g]
+            let productNeeded = undefined
+            for (let d of this.dishes) {
+                if (d.recipeName == meal) {
+                    productNeeded = d.productsList
+                }
+            }
+            result.push(`${g} will eat ${this.guests[g]}, which consists of ${productNeeded.join(', ')}`)
+        }
+
+        return result.join('\n')
+    }
+}
