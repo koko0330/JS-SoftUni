@@ -1,0 +1,38 @@
+describe ('pizzUni', function() {
+    describe ('makeAnOrder', function() {
+        it ('ordering', () => {
+            assert.throw(() => { pizzUni.makeAnOrder({})}, 'You must order at least 1 Pizza to finish the order.');
+ 
+            expect(pizzUni.makeAnOrder({orderedPizza: "Margarita"})).to.equal(`You just ordered Margarita`);
+ 
+            expect(pizzUni.makeAnOrder({orderedPizza: "Hawaii", orderedDrink: "Juice"})).to.equal('You just ordered Hawaii and Juice.');
+ 
+        });
+    });
+ 
+    describe ('getRemainingWork', function() {
+ 
+        it ('getRaminingWork testing', () => {
+            let statusArr = [{pizzaName: 'Margarita', status: 'ready' }, {pizzaName: 'Hawaii', status: 'preparing'}]
+ 
+            expect(pizzUni.getRemainingWork(statusArr)).to.equal("The following pizzas are still preparing: Hawaii.");
+ 
+            let statusArrTwo = [{pizzaName: 'Margarita', status: 'ready' }, {pizzaName: 'Hawaii', status: 'ready'}]
+ 
+            expect(pizzUni.getRemainingWork(statusArrTwo)).to.equal('All orders are complete!');
+            
+        });
+    });
+ 
+    describe ('pizzorderTypeUni', function() {
+        it ('testing function typeOfOrder ', () => {
+            let totalSum = 40
+            let  typeOfOrder = 'Carry Out'
+            expect(pizzUni.orderType(totalSum, typeOfOrder)).to.equal(36);
+ 
+            let totalSumTwo = 40
+            let typeOfOrderTwo = 'Delivery'
+            expect(pizzUni.orderType(totalSumTwo, typeOfOrderTwo)).to.equal(40);
+        });
+    });
+})
