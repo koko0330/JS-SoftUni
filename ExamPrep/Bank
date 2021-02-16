@@ -1,0 +1,109 @@
+class Bank {
+    constructor (bankName) {
+        this._bankName = bankName
+        this.allCustomers = []
+    }
+
+    newCustomer(customer) {
+        let found = false
+        for (let c of this.allCustomers) {
+            if (c.personalId == customer.personalId) {
+                found = true
+                let index = this.allCustomers.indexOf(customer)
+                break
+            }
+        }
+
+        if (found == true) {
+            throw new Error(`${customer.firstName} ${customer.lastName} is already our customer!`)
+        } else {
+            this.allCustomers.push(customer)
+            return customer
+        }
+    }
+
+    depositMoney (personalId, amount) {
+        let found = false
+        let index = 0
+        for (let c of this.allCustomers) {
+            if (c.personalId == personalId) {
+                found = true
+                index = this.allCustomers.indexOf(c)
+                break
+            }
+        }
+
+        if (found == false) {
+            throw new Error('We have no customer with this ID!')
+        } else {
+            if (!this.allCustomers[index].totalMoney) {
+                this.allCustomers[index].totalMoney = amount
+                if (!this.allCustomers[index].transactions) {
+                    this.allCustomers[index].transactions = []
+                    this.allCustomers[index].transactions.push(`${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName} made deposit of ${amount}$!`)
+                } else {
+                    this.allCustomers[index].transactions.push(`${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName} made deposit of ${amount}$!`)
+                }
+                return `${this.allCustomers[index].totalMoney}$`
+            } else {
+                this.allCustomers[index].totalMoney += amount
+                this.allCustomers[index].transactions.push(`${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName} made deposit of ${amount}$!`)
+                return `${this.allCustomers[index].totalMoney}$`
+            }
+        }
+    }
+
+    withdrawMoney (personalId, amount) {
+        let found = false
+        let index = 0
+        for (let c of this.allCustomers) {
+            if (c.personalId == personalId) {
+                found = true
+                index = this.allCustomers.indexOf(c)
+                break
+            }
+        }
+
+        if (found == false) {
+            throw new Error('We have no customer with this ID!')
+        } else {
+            if (this.allCustomers[index].totalMoney < amount) {
+                throw new Error(`${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName} does not have enough money to withdraw that amount!`)
+            } else {
+                this.allCustomers[index].totalMoney -= amount
+                this.allCustomers[index].transactions.push(`${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName} withdrew ${amount}$!`)
+                return `${this.allCustomers[index].totalMoney}$`
+            }
+        }
+    }
+
+    customerInfo (personalId) {
+        let found = false
+        let index = 0
+        for (let c of this.allCustomers) {
+            if (c.personalId == personalId) {
+                found = true
+                index = this.allCustomers.indexOf(c)
+                break
+            }
+        }
+
+        if (found == false) {
+            throw new Error('We have no customer with this ID!')
+        } else {
+            let trRes = []
+            let num = 1
+            for (let tr of this.allCustomers[index].transactions) {
+                trRes.unshift(`${num}. ${tr}`)
+                num += 1
+            }
+
+            return `Bank name: ${this._bankName}
+Customer name: ${this.allCustomers[index].firstName} ${this.allCustomers[index].lastName}
+Customer ID: ${this.allCustomers[index].personalId}
+Total Money: ${this.allCustomers[index].totalMoney}$
+Transactions:
+${trRes.join('\n')}`
+        }
+    }
+}
