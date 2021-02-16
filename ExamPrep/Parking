@@ -1,0 +1,98 @@
+class Parking {
+    constructor(capacity) {
+        this.capacity = capacity
+        this.vehicles = []
+    }
+
+    addCar(carModel, carNumber) {
+        if (this.capacity - 1 < 0) {
+            throw new Error("Not enough parking space.")
+        } else {
+            let car = {
+                carModel, 
+                carNumber, 
+                payed: false
+            }
+            this.vehicles.push(car)
+            this.capacity -= 1
+            return `The ${carModel}, with a registration number ${carNumber}, parked.`
+        }
+    }
+
+    removeCar(carNumber) {
+        let found = false
+        let index = 0
+        for (let car of this.vehicles) {
+            if (car.carNumber == carNumber) {
+                found = true
+                index = this.vehicles.indexOf(car)
+                break
+            }
+        } 
+
+        if (found == false) {
+            throw new Error("The car, you're looking for, is not found.")
+        } else {
+            if (this.vehicles[index].payed == false) {
+                throw new Error(`${carNumber} needs to pay before leaving the parking lot.`) 
+            } else {
+                this.vehicles.splice(index, 0, '')
+                this.capacity += 1
+                return `${carNumber} left the parking lot.`
+            }
+        }
+    }
+
+    pay(carNumber) {
+        let found = false
+        let index = 0
+        for (let car of this.vehicles) {
+            if (car.carNumber == carNumber) {
+                found = true
+                index = this.vehicles.indexOf(car)
+                break
+            }
+        } 
+
+        if (found == false) {
+            throw new Error(`${carNumber} is not in the parking lot.`)
+        } else {
+            if (this.vehicles[index].payed == true) {
+                throw new Error(`${carNumber}'s driver has already payed his ticket.`) 
+            } else {
+                this.vehicles[index].payed = true
+                return `${carNumber}'s driver successfully payed for his stay.`
+            }
+        }
+    }
+
+    getStatistics(carNumber) {
+        let result = []
+        if (carNumber == undefined) {
+            result.push(`The Parking Lot has ${this.capacity} empty spots left.`)
+            this.vehicles.sort((a, b) => a.carModel.localeCompare(b.carModel))
+            for (let car of this.vehicles) {
+                result.push(`${car.carModel} == ${car.carNumber} - ${car.payed ? 'Has Payed' : 'Not payed'}`)
+            }
+        } else { 
+            let found = false
+            let index = 0
+            for (let car of this.vehicles) {
+            if (car.carNumber == carNumber) {
+                found = true
+                index = this.vehicles.indexOf(car)
+                break
+            }
+        } 
+            result = `${this.vehicles[index].carModel} == ${this.vehicles[index].carNumber} - ${this.vehicles[index].payed ? 'Has Payed' : 'Not payed'}`
+        }
+
+        let type = typeof result
+
+        if (type == 'object') {
+            return result.join('\n') 
+        } else {
+            return result
+        }
+    }
+}
