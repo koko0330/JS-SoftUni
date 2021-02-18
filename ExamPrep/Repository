@@ -1,0 +1,275 @@
+describe("instantiating", function () {
+    it("constructor", function () {
+        let props = {
+            name: "string",
+            age: "number",
+            birthday: "object"
+        };
+
+        let rep1 = new Repository(props)
+
+        expect(rep1.props).to.equal(props);
+        expect(rep1.data).to.deep.equal(new Map());
+        expect(typeof rep1.props).to.equal('object');
+        expect(typeof rep1.data).to.equal('object');
+        expect(rep1.count).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(0);
+
+        expect(rep1.nextId()).to.equal(0);
+        expect(rep1.nextId()).to.equal(1);
+        expect(rep1.nextId()).to.equal(2);
+    });
+
+    it("count", function () {
+        let props = {
+            name: "string",
+            age: "number",
+            birthday: "object"
+        };
+
+        let rep1 = new Repository(props)
+
+        expect(rep1.count).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(0);
+
+        let entity = {
+            name: "Pesho",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        rep1.add(entity)
+
+        expect(rep1.count).to.equal(1);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(1);
+
+        rep1.add(entity)
+
+        expect(rep1.count).to.equal(2);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(2);
+    });
+
+    it("add", function () {
+        let properties = {
+            name: "string",
+            age: "number",
+            birthday: "object"
+        };
+
+        let rep1 = new Repository(properties)
+
+        let entity = {
+            name: "Pesho",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        expect(rep1.count).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(0);
+
+        expect(rep1.add(entity)).to.equal(0)
+
+        expect(rep1.count).to.equal(1);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(1);
+
+        let entityTwo = {
+            name: "Stoqn",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        expect(rep1.add(entityTwo)).to.equal(1)
+
+        expect(rep1.count).to.equal(2);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(2);
+
+        expect(rep1.add(entityTwo)).to.equal(2)
+
+        expect(rep1.count).to.equal(3);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(3);
+    });
+
+    it("getId", function () {
+        let properties = {
+            name: "string",
+            age: "number",
+            birthday: "object"
+        };
+
+        let rep1 = new Repository(properties)
+
+        let entity = {
+            name: "Pesho",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        assert.throw(() => {rep1.getId(0)}, 'Entity with id: 0 does not exist!');
+        assert.throw(() => {rep1.getId(1)}, 'Entity with id: 1 does not exist!');
+        assert.throw(() => {rep1.getId(-1)}, 'Entity with id: -1 does not exist!');
+
+        rep1.add(entity)
+
+        assert.throw(() => {rep1.getId(1)}, 'Entity with id: 1 does not exist!');
+        assert.throw(() => {rep1.getId(-1)}, 'Entity with id: -1 does not exist!');
+        assert.throw(() => {rep1.getId(1.2)}, 'Entity with id: 1.2 does not exist!');
+        assert.throw(() => {rep1.getId('test')}, 'Entity with id: test does not exist!');
+
+        let entityNew = {
+            name: "Ivan",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        rep1.add(entityNew)
+
+        expect(rep1.getId(0)).to.deep.equal(entity)
+        expect(rep1.getId(1)).to.deep.equal(entityNew);
+
+        let entityTwo = {
+            name: "Stoqn",
+            age: 22,
+            birthday: new Date(1998, 0, 7)
+        };
+
+        rep1.add(entityTwo)
+        expect(rep1.getId(2)).to.deep.equal(entityTwo);
+
+
+    });
+
+    it("update ID", function () {
+        let props = {
+                name: "string",
+                age: "number",
+                birthday: "object"
+            };
+
+        let rep1 = new Repository(props)
+
+        let entity = {
+            name: 'Peter',
+            age: 20,
+            birthday: new Date(1998, 0, 7)
+
+        }
+
+        
+        
+        let newEntity = {
+            name: 'Simon',
+            age: 27,
+            birthday: new Date(1995, 0, 7)
+
+        }
+
+        assert.throw(() => {rep1.update(0, newEntity)}, `Entity with id: 0 does not exist!`);
+
+        rep1.add(entity)
+        
+        assert.throw(() => {rep1.update(-1, newEntity)}, `Entity with id: -1 does not exist!`);
+        assert.throw(() => {rep1.update(1, newEntity)}, `Entity with id: 1 does not exist!`);
+        assert.throw(() => {rep1.update(2, newEntity)}, `Entity with id: 2 does not exist!`);
+
+
+        let newEntityTwo = {
+            name1: 'Simon',
+            age: 27,
+            birthday: new Date(1995, 0, 7)
+
+        }
+
+        assert.throw(() => {rep1.update(0, newEntityTwo)}, 'Property name is missing from the entity!');
+
+
+        
+        rep1.update(0, newEntity)
+        expect(rep1.getId(0)).to.equal(newEntity);
+        expect(rep1.count).to.equal(1);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(1);
+        
+    });
+
+    it("del ID", function () {
+        let props = {
+                name: "string",
+                age: "number",
+                birthday: "object"
+            };
+
+        let rep1 = new Repository(props)
+
+        let entity = {
+            name: 'Peter',
+            age: 20,
+            birthday: new Date(1998, 0, 7)
+
+        }
+
+        assert.throw(() => {rep1.del(0)}, `Entity with id: 0 does not exist!`);
+        assert.throw(() => {rep1.del(1)}, `Entity with id: 1 does not exist!`);
+        assert.throw(() => {rep1.del(2)}, `Entity with id: 2 does not exist!`);
+        assert.throw(() => {rep1.del(-1)}, `Entity with id: -1 does not exist!`);
+        expect(rep1.count).to.equal(0);
+        expect(rep1.data.size).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+
+        rep1.add(entity)
+        expect(rep1.count).to.equal(1);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(1);
+
+        assert.throw(() => {rep1.del(1)}, `Entity with id: 1 does not exist!`);
+        assert.throw(() => {rep1.del(2)}, `Entity with id: 2 does not exist!`);
+        assert.throw(() => {rep1.del(-1)}, `Entity with id: -1 does not exist!`);
+
+        rep1.add(entity)
+        expect(rep1.count).to.equal(2);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(2);
+
+        rep1.del(0)
+        expect(rep1.count).to.equal(1);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(1);
+
+        rep1.del(1)
+        expect(rep1.count).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+        expect(rep1.data.size).to.equal(0);
+
+        assert.throw(() => {rep1.del(0)}, `Entity with id: 0 does not exist!`);
+        expect(rep1.count).to.equal(0);
+        expect(rep1.data.size).to.equal(0);
+        expect(rep1.count).to.equal(rep1.data.size);
+    });
+
+    it("_validate", function () {
+        let props = {
+            name: "string",
+            age: "number",
+            birthday: "object"
+        };
+
+        let rep2 = new Repository(props)
+
+        assert.throw(() => rep2.add({age: 20, birthday: new Date(1998, 0, 7)}), `Property name is missing from the entity!`)
+        assert.throw(() => rep2.add({name1: 'Peter', age: 20, birthday: new Date(1998, 0, 7)}), `Property name is missing from the entity!`)
+        assert.throw(() => rep2.add({name: 'Peter', birthday: new Date(1998, 0, 7)}), `Property age is missing from the entity!`)
+        assert.throw(() => rep2.add({name: 'Peter', age: 20}), `Property birthday is missing from the entity!`)
+
+        assert.throw(() => rep2.add({name: 0, age: 20, birthday: new Date(1998, 0, 7)}), `Property name is not of correct type!`)
+        assert.throw(() => rep2.add({name: 'Peter', age: "20", birthday: new Date(1998, 0, 7)}), `Property age is not of correct type!`)
+        assert.throw(() => rep2.add({name: 'Peter', age: 20, birthday: 2}), `Property birthday is not of correct type!`)
+        assert.throw(() => rep2.add({name: 'Peter', age: 20, birthday: 'a'}), `Property birthday is not of correct type!`)
+    });
+});
