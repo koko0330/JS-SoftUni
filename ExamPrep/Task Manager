@@ -1,0 +1,119 @@
+function solve() {
+    let task = document.querySelectorAll('form>input')[0]
+    let description = document.querySelectorAll('form>textarea')[0]
+    let dueDate = document.querySelectorAll('form>input')[1]
+    let addBtn = document.getElementById('add').addEventListener('click', onClick)
+    let openSection = document.getElementsByTagName('section')[1].getElementsByTagName('div')[1]
+    let inProgrees = document.getElementById('in-progress')
+
+    let complete = document.getElementsByTagName('section')[3]
+
+    function onClick(ev) {
+        ev.preventDefault()
+        if (task.value != '' && description.value != '' && dueDate != '') {
+            // Creating buttons
+            let startBtn = document.createElement('button')
+            startBtn.textContent = 'Start'
+            startBtn.classList.add('green')
+            startBtn.addEventListener('click', onStart)
+
+            let delBtn = document.createElement('button')
+            delBtn.textContent = 'Delete'
+            delBtn.classList.add('red')
+            delBtn.addEventListener('click', onDelete)
+
+            // Creating div element, adding class to it and appending the buttons
+
+            let div = document.createElement('div')
+            div.classList.add('flex')
+            div.appendChild(startBtn)
+            div.appendChild(delBtn)
+
+            // Creating h3 and two paragraphs and adding their contents
+
+            let h3 = document.createElement('h3') 
+            h3.textContent = task.value
+         
+
+            let p1 = document.createElement('p')
+            p1.textContent = 'Description: ' + description.value
+
+
+            let p2 = document.createElement('p')
+            p2.textContent = 'Due Date: ' + dueDate.value
+
+
+            // Creating Article element and adding all other elements to it
+
+            let article = document.createElement('article')
+            article.appendChild(h3)
+            article.appendChild(p1)
+            article.appendChild(p2)
+            article.appendChild(div)
+            openSection.appendChild(article)
+
+        } else {
+            // Creating buttons
+            let startBtn = document.createElement('button')
+            startBtn.textContent = 'Start'
+            startBtn.classList.add('green')
+            startBtn.addEventListener('click', onStart)
+
+            let delBtn = document.createElement('button')
+            delBtn.textContent = 'Delete'
+            delBtn.classList.add('red')
+            delBtn.addEventListener('click', onDelete)
+
+            // Creating div element, adding class to it and appending the buttons
+
+            let div = document.createElement('div')
+            div.classList.add('flex')
+            div.appendChild(startBtn)
+            div.appendChild(delBtn)
+
+            // Creating h3 and two paragraphs and adding their contents
+
+            let h3 = document.createElement('h3')
+            h3.textContent =  task.getAttribute('placeholder')
+    
+
+            let p1 = document.createElement('p')
+            p1.textContent = 'Description: ' + description.getAttribute('placeholder')
+   
+            let p2 = document.createElement('p')
+            p2.textContent = 'Due Date: ' + dueDate.getAttribute('placeholder')
+ 
+
+            // Creating Article element and adding all other elements to it
+
+            let article = document.createElement('article')
+            article.appendChild(h3)
+            article.appendChild(p1)
+            article.appendChild(p2)
+            article.appendChild(div)
+            openSection.appendChild(article)
+        }
+
+        function onStart(ev) {
+            let tar = ev.target.parentNode.parentNode
+            inProgrees.appendChild(tar)
+            ev.target.remove()
+            let finishBtn = document.createElement('button')
+            finishBtn.textContent = 'Finish'
+            finishBtn.classList.add('orange')
+            finishBtn.addEventListener('click', onFinish)
+            tar.children[3].appendChild(finishBtn)
+        }
+
+        function onDelete(ev) {
+            ev.target.parentNode.parentNode.remove()
+        }
+
+        function onFinish(ev) {
+            let item = ev.target.parentNode.parentNode
+            item.children[3].remove()
+            let toAppend = complete.children[1]
+            toAppend.appendChild(item)
+        }
+    }
+}
