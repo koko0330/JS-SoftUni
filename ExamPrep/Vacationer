@@ -1,0 +1,85 @@
+class Vacationer {
+    constructor(fullName, creditCard = [1111, '', 111]) {
+        this.fullName = {
+            firstName: fullName[0],
+            middleName: fullName[1],
+            lastName: fullName[2]
+        }
+        this.idNumber = this.generateIDNumber()
+        this.creditCard = {
+            cardNumber: creditCard[0],
+            expirationDate: creditCard[1],
+            securityNumber: creditCard[2]
+        }
+        this.wishList = []
+ 
+    }
+    get creditCard() {
+        return this._creditCard
+    }
+    set creditCard(value) {
+        if (value.length < 3) {
+            throw new Error('Missing credit card information')
+        }else if (typeof value.cardNumber !== 'number' || typeof value.securityNumber !== 'number') {
+            throw new Error('Invalid credit card details')
+        }
+        return this._creditCard = value
+    }
+    get fullName() {
+        return this._fullName
+    }
+ 
+    set fullName(value) {
+        if (value.length < 3) {
+            throw new Error('Name must include first name, middle name and last name')
+        }
+        for (let  v of Object.values(value)) {
+            let pattern = /^[A-Z][a-z]+$/
+            if (!pattern.test(v)) {
+                throw new Error('Invalid full name')
+            }
+        }
+        return this._fullName = value
+    }
+    generateIDNumber() {
+        let numberID;
+        numberID = 231 * this.fullName.firstName.charCodeAt(0) + 139 * this.fullName.middleName.length
+        let lastone = this.fullName.lastName[this.fullName.lastName.length - 1]
+        if (["a", "e", "o", "i", "u"].includes(lastone)) {
+            numberID += '8'
+        } else {
+            numberID += '7'
+        }
+        return numberID
+    }
+    addCreditCardInfo(input) {
+        this.creditCard = {
+            cardNumber: input[0],
+            expirationDate: input[1],
+            securityNumber: input[2]
+        }
+    }
+    addDestinationToWishList(destination) {
+        if (this.wishList.includes(destination)) {
+            throw new Error('Destination already exists in wishlist')
+        }
+        this.wishList.push(destination)
+        this.wishList.sort((a, b) => a.length - b.length)
+    }
+    getVacationerInfo() {
+        let result = `Name: ${this.fullName.firstName} ${this.fullName.middleName} ${this.fullName.lastName}`
+        result += `\nID Number: ${this.idNumber}`
+        result += `\nWishlist:`
+        if (this.wishList.length === 0) {
+            result += `\nempty`
+        } else {
+            result += `\n${this.wishList.join(', ')}`
+        }
+        result += `\nCredit Card:`
+        result += `\nCard Number: ${this.creditCard.cardNumber}`
+        result += `\nExpiration Date: ${this.creditCard.expirationDate}`
+        result += `\nSecurity Number: ${this.creditCard.securityNumber}`
+        return result
+    }
+ 
+}
