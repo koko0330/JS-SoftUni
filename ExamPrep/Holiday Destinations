@@ -1,0 +1,36 @@
+function addDestination() {
+    let city = document.getElementsByTagName('input')[0]
+    let country = document.getElementsByTagName('input')[1]
+    let season = document.getElementById('seasons')
+    let table = document.getElementById('destinationsList')
+    let summaryBox = document.getElementById('summaryBox')
+
+    if (!city.value || !country.value) {
+        return
+    }
+
+    let td = document.createElement('td')
+    td.textContent = city.value + ', ' + country.value
+
+    let tdseason = document.createElement('td')
+    tdseason.textContent = season.value[0].toUpperCase() + season.value.slice(1, season.value.length)
+
+    let tr = document.createElement('tr')
+    tr.appendChild(td)
+    tr.appendChild(tdseason)
+
+    table.appendChild(tr)
+
+    if (season.value == "summer") {
+        summaryBox.getElementsByTagName('input')[0].value++
+    } else if (season.value == "winter") {
+        summaryBox.getElementsByTagName('input')[2].value++
+    } else if (season.value == "spring") {
+        summaryBox.getElementsByTagName('input')[3].value++
+    } else if (season.value == "autumn") {
+        summaryBox.getElementsByTagName('input')[1].value++
+    }
+    
+    city.value = ''
+    country.value = ''
+}
