@@ -1,0 +1,132 @@
+describe('ChristmasMovies', () => {
+    describe('constructor', () => {
+
+        it('instantiation', () => {
+            let chrisMovies = new ChristmasMovies()
+            expect(chrisMovies.movieCollection).to.deep.equal([]);
+            expect(chrisMovies.movieCollection.length).to.equal(0)
+            expect(chrisMovies.watched).to.deep.equal({});
+            expect(chrisMovies.actors).to.deep.equal([]);
+            expect(chrisMovies.actors.length).to.equal(0)
+        });
+    });
+ 
+    describe('buyMovie', () => {
+       
+        it('adding udefined movie to the collection', () => {
+            let chrisMovies = new ChristmasMovies()
+            expect(chrisMovies.movieCollection.length).to.equal(0)
+            expect(chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])).to.equal('You just got Titanic to your collection in which Leonardo Di Caprio, Kate Winslet are taking part!');
+            expect(chrisMovies.movieCollection.length).to.equal(1)
+            expect(chrisMovies.buyMovie('Matrix', ['Keanu Reaves', 'Lawrence Fishburn'])).to.equal('You just got Matrix to your collection in which Keanu Reaves, Lawrence Fishburn are taking part!');
+            expect(chrisMovies.movieCollection.length).to.equal(2)
+            expect(chrisMovies.buyMovie('Shutter Island', ['Leonardo Di Caprio', 'Matt Damon'])).to.equal('You just got Shutter Island to your collection in which Leonardo Di Caprio, Matt Damon are taking part!');
+            expect(chrisMovies.movieCollection.length).to.equal(3)
+            expect(chrisMovies.buyMovie('Inception', ['Leonardo Di Caprio', 'Leonardo Di Caprio', 'Elliot Page'])).to.equal('You just got Inception to your collection in which Leonardo Di Caprio, Elliot Page are taking part!');
+            expect(chrisMovies.movieCollection.length).to.equal(4)
+        });
+ 
+        it('adding existing movie throws an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            assert.throw(() => { chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])}, 'You already own Titanic in your collection!');
+            expect(chrisMovies.movieCollection.length).to.equal(1)
+
+        });
+    });
+        
+ 
+    describe('discardMovie', () => {
+        it('removing unexisting movie throws an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            assert.throw(() => { chrisMovies.discardMovie('Matrix')}, 'Matrix is not at your collection!');
+            expect(chrisMovies.movieCollection.length).to.equal(1)
+        });
+        it('removing existing movie thats not watched thhrows an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            assert.throw(() => { chrisMovies.discardMovie('Titanic')},'Titanic is not watched!');
+            expect(chrisMovies.movieCollection.length).to.equal(0)
+        });
+ 
+        it('removing existing movie that was watched', () => {
+            let chrisMovies = new ChristmasMovies()
+            let movie = 'Titanic'
+            let actors = ['Leonardo Di Caprio', 'Kate Winslet']
+            chrisMovies.buyMovie(movie, actors)
+            chrisMovies.watchMovie(movie)
+            expect(chrisMovies.discardMovie(movie)).to.equal('You just threw away Titanic!')
+            expect(chrisMovies.movieCollection.length).to.equal(0)
+        });
+    });
+
+    describe('watchMovie', () => {
+        it('watching unexisting movie throws an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            assert.throw(() => { chrisMovies.watchMovie('Matrix')}, 'No such movie in your collection!');
+        });
+        it('watching existing movie works', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            chrisMovies.watchMovie('Titanic')
+            expect(chrisMovies.watched).to.deep.equal({ 'Titanic': 1 })
+            chrisMovies.watchMovie('Titanic')
+            expect(chrisMovies.watched).to.deep.equal({ 'Titanic': 2 })
+            let movieTwo = 'Shutter Island'
+            let actorsTwo = ['Leonardo Di Caprio', 'Matt Damon']
+            chrisMovies.buyMovie(movieTwo, actorsTwo)
+            chrisMovies.watchMovie(movieTwo)
+            expect(chrisMovies.watched).to.deep.equal({ 'Titanic': 2, 'Shutter Island': 1 })
+        });
+    });
+
+    describe('favouriteMovie', () => {
+
+        it('not having a watched movie throws an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            let movieTwo = 'Shutter Island'
+            let actorsTwo = ['Leonardo Di Caprio', 'Matt Damon']
+            chrisMovies.buyMovie(movieTwo, actorsTwo)
+
+            assert.throw(() => { chrisMovies.favouriteMovie()}, 'You have not watched a movie yet this year!');
+        });
+
+        it('watching existing movie works', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            let movieTwo = 'Shutter Island'
+            let actorsTwo = ['Leonardo Di Caprio', 'Matt Damon']
+            chrisMovies.buyMovie(movieTwo, actorsTwo)
+            chrisMovies.watchMovie('Titanic')
+            chrisMovies.watchMovie(movieTwo)
+            chrisMovies.watchMovie(movieTwo)
+            chrisMovies.watchMovie(movieTwo)
+            expect(chrisMovies.favouriteMovie()).to.equal('Your favourite movie is Shutter Island and you have watched it 3 times!')
+        });
+    });
+
+    describe('mostStarredActor', () => {
+
+        it('not having movie in the collection throws an error', () => {
+            let chrisMovies = new ChristmasMovies()
+            assert.throw(() => { chrisMovies.mostStarredActor()}, 'You have not watched a movie yet this year!');
+        });
+
+        it('watching existing movie works', () => {
+            let chrisMovies = new ChristmasMovies()
+            chrisMovies.buyMovie('Titanic', ['Leonardo Di Caprio', 'Kate Winslet'])
+            let movieTwo = 'Shutter Island'
+            let actorsTwo = ['Leonardo Di Caprio', 'Matt Damon']
+            chrisMovies.buyMovie(movieTwo, actorsTwo)
+            chrisMovies.watchMovie('Titanic')
+            chrisMovies.watchMovie(movieTwo)
+            chrisMovies.watchMovie(movieTwo)
+            chrisMovies.watchMovie(movieTwo)
+
+            expect(chrisMovies.mostStarredActor()).to.equal('The most starred actor is Leonardo Di Caprio and starred in 2 movies!')
+        });
+    });
+});
